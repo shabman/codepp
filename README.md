@@ -1,1 +1,0 @@
-# codepp - a cool editor
