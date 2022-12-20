@@ -45,17 +45,13 @@ private:
 	uint __m;
 	uint __e;
 public:
-	iterator(const linb::any* _a) {
+	iterator(linb::any* _a) {
 		__ptr = _a;
 		__b = 0;
 		__e = sizeof(_a[0]) / sizeof(_a);
 		__m = __e / 2;
 	}
 	~iterator() { }
-
-	iterator& operator = (const linb::any* _a) {
-		return iterator(_a);
-	}
 public:
 	uint begin() const CODEPP_NTHROW {
 		return __b;
@@ -67,7 +63,5 @@ public:
 		return __e;
 	}
 };
-
-typedef struct iterator it;
 
 #endif /* CODE_PP_INCLUDE_CORE_EXT_ITERABLE_H */

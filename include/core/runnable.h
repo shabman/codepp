@@ -13,6 +13,8 @@
 namespace codepp {
 namespace core {
 
+// the runnable context should be created in the main thread and passed
+// to all children that require this
 class runnable final {
 public: // static
 	// Draw calls
@@ -22,8 +24,8 @@ private:
 	bool __render_running = false;
 private:
 	void __cleanup() const CODEPP_NTHROW {
-		// DANGEROUS but like i am idiot so it ok
 		_iterate_clr(reinterpret_cast<linb::any*>(&__renderables), __renderables.size());
+		__render_running = false;
 	}
 public:
 	runnable(const int& width, const int& height, const char* title) : __win(width, height, title) {}
