@@ -4,10 +4,14 @@
 // Copyright   : Copyright (c) 2022 Mustafa Malik (@shabman)
 //============================================================================
 
-#include "../include/core/runnable.h"
-#include "../include/events/subscriber.h"
+#ifndef CODE_PP_INCLUDE_CORE_CODEPPBASE_H
+#define CODE_PP_INCLUDE_CORE_CODEPPBASE_H
 
-int main() {
-	//SetExitKey(KEY_NULL);
-	return 0;
-}
+namespace codepp {
+namespace core {
+
+class base { };
+
+}}
+
+#endif /* CODE_PP_INCLUDE_CORE_CODEPPBASE_H */

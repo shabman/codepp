@@ -4,10 +4,9 @@
 // Copyright   : Copyright (c) 2022 Mustafa Malik (@shabman)
 //============================================================================
 
-#include "../include/core/runnable.h"
-#include "../include/events/subscriber.h"
+#ifndef CODE_PP_INCLUDE_EVENTS_CONFIG_H
+#define CODE_PP_INCLUDE_EVENTS_CONFIG_H
 
-int main() {
-	//SetExitKey(KEY_NULL);
-	return 0;
-}
+#include "../config.h"
+
+#endif /* CODE_PP_INCLUDE_EVENTS_CONFIG_H */

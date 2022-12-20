@@ -17,6 +17,8 @@
 #include <cmath>
 #include <functional>
 
+#include "core/codeppbase.h"
+
 #define CODEPP_EXPORT extern
 #define CODEPP_STATIC static
 #define CODEPP_THROWS noexcept(false)

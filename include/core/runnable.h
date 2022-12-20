@@ -22,10 +22,11 @@ public: // static
 private:
 	raylib::Window __win;
 	bool __render_running = false;
+public:
+	bool force_shutdown = false;
 private:
 	void __cleanup() const CODEPP_NTHROW {
 		_iterate_clr(reinterpret_cast<linb::any*>(&__renderables), __renderables.size());
-		__render_running = false;
 	}
 public:
 	runnable(const int& width, const int& height, const char* title) : __win(width, height, title) {}
@@ -37,10 +38,15 @@ public:
 		}
 		__render_running = true;
 		while (!__win.ShouldClose()) {
+			if (force_shutdown)
+				break;
+			// events
+			// render
 			__win.BeginDrawing();
 			_iterate_func_and_exec(__renderables);
 			__win.EndDrawing();
 		}
+		__render_running = false;
 		__cleanup();
 	}
 
