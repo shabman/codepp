@@ -40,9 +40,6 @@ public:
 		while (!__win.ShouldClose()) {
 			if (force_shutdown)
 				break;
-			if (IsKeyPressed(KEY_O) && IsKeyDown(KEY_LEFT_CONTROL)) {
-				std::cout << "ok\n";
-			}
 			// events
 			// render
 			__win.BeginDrawing();
