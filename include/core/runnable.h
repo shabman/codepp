@@ -16,21 +16,21 @@ namespace core {
 // the runnable context should be created in the main thread and passed
 // to all children that require this
 class runnable final {
-public: // static
-	// Draw calls
-	CODEPP_STATIC std::vector<std::function<void()>> __renderables;
 private:
 	raylib::Window __win;
+	std::vector<std::function<void()>> __renderables;
 	bool __render_running = false;
 public:
 	bool force_shutdown = false;
 private:
-	void __cleanup() const CODEPP_NTHROW {
-		_iterate_clr(reinterpret_cast<linb::any*>(&__renderables), __renderables.size());
+	void __cleanup() CODEPP_NTHROW {
+
 	}
 public:
 	runnable(const int& width, const int& height, const char* title) : __win(width, height, title) {}
-	~runnable() { }
+	~runnable() {
+		__cleanup();
+	}
 public:
 	void loop() CODEPP_NTHROW {
 		if (__render_running) {
@@ -40,6 +40,9 @@ public:
 		while (!__win.ShouldClose()) {
 			if (force_shutdown)
 				break;
+			if (IsKeyPressed(KEY_O) && IsKeyDown(KEY_LEFT_CONTROL)) {
+				std::cout << "ok\n";
+			}
 			// events
 			// render
 			__win.BeginDrawing();
@@ -47,18 +50,17 @@ public:
 			__win.EndDrawing();
 		}
 		__render_running = false;
-		__cleanup();
 	}
 
-	CODEPP_STATIC void add_renderable(const std::function<void()>& func) CODEPP_NTHROW {
+	void add_renderable(const std::function<void()>& func) CODEPP_NTHROW {
 		__renderables.push_back(func);
 	}
 
-	CODEPP_STATIC void remove_renderable(const std::function<void()>& func) CODEPP_NTHROW {
+	void remove_renderable(const std::function<void()>& func) CODEPP_NTHROW {
 		__renderables[_iterate_func_get_index(__renderables, &func)] = nullptr;
 	}
 
-	CODEPP_STATIC void remove_renderable(cuint& index) CODEPP_NTHROW {
+	void remove_renderable(cuint& index) CODEPP_NTHROW {
 		if (__renderables.size() >= index) {
 			__renderables[index] = nullptr;
 		}

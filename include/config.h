@@ -40,6 +40,28 @@ typedef const unsigned int cuint;
 #define SMART_SCAN      AUTO_SYNC_POOL // only available when auto synchronisation is enabled
 #define THREAD_POOL_MAX std::thread::hardware_concurrency()
 
+// KEY BINDS
+
+#if defined(__APPLE__) || defined(__linux__)
+	#define CODEPP_KEY_OPENPROJ 	(IsKeyPressed(KEY_O) && IsKeyDown(KEY_LEFT_ALT))
+	#define CODEPP_KEY_SAVEFILE 	(IsKeyPressed(KEY_S) && IsKeyDown(KEY_LEFT_ALT))
+	#define CODEPP_KEY_NEWPROJ 		(IsKeyPressed(KEY_N) && IsKeyDown(KEY_LEFT_ALT))
+#elif defined(_WIN32)
+	#define CODEPP_KEY_OPENPROJ 	(IsKeyPressed(KEY_O) && IsKeyDown(KEY_LEFT_CONTROL))
+	#define CODEPP_KEY_SAVEFILE 	(IsKeyPressed(KEY_S) && IsKeyDown(KEY_LEFT_CONTROL))
+	#define CODEPP_KEY_NEWPROJ 		(IsKeyPressed(KEY_N) && IsKeyDown(KEY_LEFT_CONTROL))
+#endif
+
+// Editor
+
+//struct editor_config final {
+//public:
+//	static bool is_editing 			= false;
+//	static bool is_locked 			= false;
+//	static bool is_clickable		= true;
+//	static bool is_click_locked		= false;
+//};
+
 // Ray Library
 
 #include "../lib/rcpp426/include/raylib-cpp.hpp"

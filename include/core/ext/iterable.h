@@ -15,6 +15,8 @@
 // FUNCTION VECTOR ITERATION
 
 __EXPORT void _iterate_clr(linb::any* __arr, cuint& size) {
+	if (size == 0)
+		return;
 	for (int i = 0; i < size; i++) {
 		(*__arr) = nullptr;
 	}

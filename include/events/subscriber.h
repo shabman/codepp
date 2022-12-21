@@ -39,6 +39,20 @@ public:
 			}
 		}
 	}
+
+	CODEPP_STATIC void flush() CODEPP_NTHROW {
+		_iterate_clr(reinterpret_cast<linb::any*>(&children), children.size());
+	}
+public:
+	CODEPP_STATIC void fire_event(const std::string name, void* data) CODEPP_NTHROW {
+		for (int i = it->begin(); i < it->end(); i++) {
+			children[i]->on_event(name, data);
+		}
+	}
+
+	CODEPP_STATIC void fire_event_single(core::base* target, std::string name, void* data) CODEPP_NTHROW {
+		target->on_event(name, data);
+	}
 };
 
 }}
