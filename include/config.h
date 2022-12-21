@@ -54,13 +54,12 @@ typedef const unsigned int cuint;
 
 // Editor
 
-//struct editor_config final {
-//public:
-//	static bool is_editing 			= false;
-//	static bool is_locked 			= false;
-//	static bool is_clickable		= true;
-//	static bool is_click_locked		= false;
-//};
+enum class editor_config {
+	is_editing			= false,
+	is_locked 			= false,
+	is_clickable 		= true,
+	is_click_locked 	= false
+};
 
 // Ray Library
 
