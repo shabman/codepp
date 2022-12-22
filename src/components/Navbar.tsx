@@ -2,7 +2,10 @@ import React from "react";
 
 import "../styles/navbar.css"
 
-const NavbarItem : React.FC<{children : string}> = ({children}) => {
+import AOS from "aos"
+import "aos/dist/aos.css"
+
+const NavbarItem : React.FC<{children : string | React.ReactNode}> = ({children}) => {
     return (
         <div className="navbar item">
             <span className="navbar item text">{children}</span>
@@ -11,9 +14,17 @@ const NavbarItem : React.FC<{children : string}> = ({children}) => {
 }
 
 const Navbar : React.FC = () => {
+
+    React.useEffect(() => {
+        AOS.init()
+    }) 
     return (
-        <div className="navbar">
-            <NavbarItem>sss</NavbarItem>
+        <div data-aos="fade-right" className="navbar">
+            <div className="navbar head">
+                <a className="navbar head a">
+                <span>Code++</span>
+                </a> 
+            </div>
         </div>
     )
 }
