@@ -7,32 +7,36 @@
 #ifndef CODE_PP_INCLUDE_EVENTS_SUBSCRIBER_H
 #define CODE_PP_INCLUDE_EVENTS_SUBSCRIBER_H
 
-#include "config.h"
+#include "../config.h"
 #include "../core/ext/iterable.h"
-
-using namespace codepp;
 
 namespace codepp {
 namespace events {
 
+enum class event_codes {
+	NEW_PROJ,
+	OPEN_PROJ,
+	SAVE_FILE,
+
+};
+
 class subscriber final {
 private:
-	CODEPP_STATIC std::vector<core::base*> children;
-	CODEPP_STATIC iterator* it;
-private:
-	subscriber() = delete;
-	~subscriber() = delete;
+	CODEPP_STATIC std::vector<base<codepp::events::event_codes>*> children;
 public:
-	CODEPP_STATIC void init() CODEPP_NTHROW {
-		(*it) = reinterpret_cast<linb::any*>(&children);
+	subscriber() = default;
+	~subscriber() = default;
+
+	CODEPP_STATIC subscriber* init() CODEPP_NTHROW {
+		return new subscriber();
 	}
 
-	CODEPP_STATIC void add(core::base* child) CODEPP_NTHROW {
+	CODEPP_STATIC void add(base<codepp::events::event_codes>* child) CODEPP_NTHROW {
 		children.push_back(child);
 	}
 
-	CODEPP_STATIC void remove(core::base* child) CODEPP_NTHROW {
-		for (int i = it->begin(); i < it->end(); i++) {
+	CODEPP_STATIC void remove(base<codepp::events::event_codes>* child) CODEPP_NTHROW {
+		for (int i = 0; i < children.size(); i++) {
 			if (children[i] == child) {
 				children[i] = nullptr;
 				break;
@@ -44,16 +48,21 @@ public:
 		_iterate_clr(reinterpret_cast<linb::any*>(&children), children.size());
 	}
 public:
-	CODEPP_STATIC void fire_event(const std::string name, void* data) CODEPP_NTHROW {
-		for (int i = it->begin(); i < it->end(); i++) {
+	void fire_event(const event_codes& name, void* data) CODEPP_NTHROW {
+		if (children.empty())
+			return;
+		for (int i = 0; i < children.size(); i++) {
 			children[i]->on_event(name, data);
 		}
 	}
 
-	CODEPP_STATIC void fire_event_single(core::base* target, std::string name, void* data) CODEPP_NTHROW {
+	void fire_event_single(base<codepp::events::event_codes>* target, const event_codes& name, void* data) CODEPP_NTHROW {
 		target->on_event(name, data);
 	}
 };
+
+
+#include "config.h"
 
 }}
 

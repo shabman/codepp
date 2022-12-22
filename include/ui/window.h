@@ -12,7 +12,7 @@
 namespace codepp {
 namespace ui {
 
-class window : private codepp::core::base {
+class window {
 
 };
 

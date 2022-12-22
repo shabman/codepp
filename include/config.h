@@ -17,8 +17,6 @@
 #include <cmath>
 #include <functional>
 
-#include "core/codeppbase.h"
-
 #define CODEPP_EXPORT extern
 #define CODEPP_STATIC static
 #define CODEPP_THROWS noexcept(false)
@@ -55,11 +53,25 @@ typedef const unsigned int cuint;
 // Editor
 
 enum class editor_config {
-	is_editing			= false,
-	is_locked 			= false,
-	is_clickable 		= true,
-	is_click_locked 	= false
+	is_editing				= false,
+	is_locked 				= false,
+	is_clickable 			= true,
+	is_click_locked 		= false,
+
+	is_scroll_pane_click	= true,
+	is_scroll_pane_locked 	= false,
 };
+
+
+// Core classes
+
+template<typename T>
+class base {
+public:
+	virtual ~base();
+	virtual void on_event(const T&, void*) const noexcept;
+};
+
 
 // Ray Library
 

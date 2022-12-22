@@ -9,6 +9,7 @@
 
 #include "../config.h"
 #include "ext/iterable.h"
+#include "../events/subscriber.h"
 
 namespace codepp {
 namespace core {
@@ -19,15 +20,18 @@ class runnable final {
 private:
 	raylib::Window __win;
 	std::vector<std::function<void()>> __renderables;
+	codepp::events::subscriber* __events;
 	bool __render_running = false;
 public:
 	bool force_shutdown = false;
 private:
 	void __cleanup() CODEPP_NTHROW {
-
+		delete __events;
 	}
 public:
-	runnable(const int& width, const int& height, const char* title) : __win(width, height, title) {}
+	runnable(const int& width, const int& height, const char* title) : __win(width, height, title) {
+		__events = codepp::events::subscriber::init();
+	}
 	~runnable() {
 		__cleanup();
 	}
@@ -40,7 +44,9 @@ public:
 		while (!__win.ShouldClose()) {
 			if (force_shutdown)
 				break;
-			// events
+			if (CODEPP_KEY_OPENPROJ) {
+				__events->fire_event_single(nullptr, codepp::events::event_codes::NEW_PROJ, nullptr);
+			}
 			// render
 			__win.BeginDrawing();
 			_iterate_func_and_exec(__renderables);
