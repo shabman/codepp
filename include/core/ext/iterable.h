@@ -1,8 +1,4 @@
-//============================================================================
-// Name        : codepp.cpp
-// Author      : Mustafa Malik
 // Copyright   : Copyright (c) 2022 Mustafa Malik (@shabman)
-//============================================================================
 
 #ifndef CODE_PP_INCLUDE_CORE_EXT_ITERABLE_H
 #define CODE_PP_INCLUDE_CORE_EXT_ITERABLE_H
@@ -28,15 +24,28 @@ __EXPORT void _iterate_func_and_exec(const std::vector<std::function<void()>>& _
 	}
 }
 
-__EXPORT uint _iterate_func_get_index(const std::vector<std::function<void()>>& _arr, const std::function<void()>* target) {
+template<typename T>
+__EXPORT uint _iterate_get_index(const std::vector<T>& _arr, const T& target) {
 	unsigned int res = 0;
 	for (int i = 0; i < _arr.size(); i++) {
-		if (&_arr[i] == target) {
+		if (&_arr[i] == &target) {
 			res = i;
 			break;
 		}
 	}
 	return res;
+}
+
+template<typename T>
+__EXPORT bool _iterate_v_exists(const std::vector<T> _arr, const T& v, cuint size) {
+	bool matched = false;
+	for (int i = 0; i < size; i++) {
+		if (_arr[i] == v) {
+			matched = true;
+			break;
+		}
+	}
+	return matched;
 }
 
 // use any

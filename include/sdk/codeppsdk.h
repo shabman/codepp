@@ -1,8 +1,4 @@
-//============================================================================
-// Name        : codepp.cpp
-// Author      : Mustafa Malik
 // Copyright   : Copyright (c) 2022 Mustafa Malik (@shabman)
-//============================================================================
 
 #ifndef CODE_PP_INCLUDE_SDK_CODEPPSDK_H
 #define CODE_PP_INCLUDE_SDK_CODEPPSDK_H

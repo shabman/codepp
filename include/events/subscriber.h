@@ -1,8 +1,4 @@
-//============================================================================
-// Name        : codepp.cpp
-// Author      : Mustafa Malik
 // Copyright   : Copyright (c) 2022 Mustafa Malik (@shabman)
-//============================================================================
 
 #ifndef CODE_PP_INCLUDE_EVENTS_SUBSCRIBER_H
 #define CODE_PP_INCLUDE_EVENTS_SUBSCRIBER_H
@@ -60,9 +56,6 @@ public:
 		target->on_event(name, data);
 	}
 };
-
-
-#include "config.h"
 
 }}
 
